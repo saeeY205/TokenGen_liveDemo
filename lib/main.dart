@@ -11,12 +11,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PhonePreview(
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'TokenGen Queue (Demo)',
-        home: const SplashScreen(),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'TokenGen Queue (Demo)',
+      builder: (context, child) {
+        return PhonePreview(
+          child: child ?? const SizedBox(),
+        );
+      },
+      home: const SplashScreen(),
     );
   }
 }
@@ -68,7 +71,12 @@ class PhonePreview extends StatelessWidget {
                           // App Content
                           ClipRRect(
                             borderRadius: BorderRadius.circular(34),
-                            child: child,
+                            child: MediaQuery(
+                              data: MediaQuery.of(context).copyWith(
+                                size: const Size(375, 750),
+                              ),
+                              child: child,
+                            ),
                           ),
                           // Top Notch
                           Align(
